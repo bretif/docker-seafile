@@ -12,10 +12,12 @@ You run the container and store the volume on your filesystem.
 You can use a mysql/mariadb container, I personally use bretif/mariadb container
 
 Run it
- docker run -d --name="mariadb" -p 127.0.0.1:3306:3306 -e USER="root" -e PASS="$(pwgen -s -1 16)" bretif/mariadb
+
+    docker run -d --name="mariadb" -p 127.0.0.1:3306:3306 -e USER="root" -e PASS="$(pwgen -s -1 16)" bretif/mariadb
 
 Get mariadb root password
- docker logs mariadb 
+
+    docker logs mariadb 
 
 As seafile installer create account @locahost in db, you need to create manually user and db
 From your host launch mysql client, and create users and dbs
