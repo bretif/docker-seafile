@@ -11,7 +11,7 @@ RUN ulimit -n 30000
 # Interface the environment
 RUN mkdir /opt/seafile
 WORKDIR /opt/seafile
-RUN curl -L -O https://bitbucket.org/haiwen/seafile/downloads/seafile-server_3.1.7_x86-64.tar.gz
+RUN curl -L -O https://bitbucket.org/haiwen/seafile/downloads/seafile-server_3.1.6_x86-64.tar.gz
 RUN tar xzf seafile-server_*
 RUN mkdir -p installed
 RUN mkdir -p log
