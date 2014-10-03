@@ -62,6 +62,21 @@ Run the image again, this time you probably want to give it a name for using som
       -e autostart=true \
       bretif/seafile
 
+If you want tio use a proxy, you can start seahub with fastcgi option:
+
+    docker run -d \
+      --name seafile \
+      -p 10001:10001 \
+      -p 12001:12001 \
+      -p 8000:8000 \
+      -p 8082:8082 \
+      --link mariadb:db \
+      -v /srv/seafile:/opt/seafile \
+      -e autostart=true \
+      -e fcgi=true \
+      bretif/seafile
+
+
 ## Updates and Maintenance
 
 The Seafile binaries are stored in the permanent volume `/opt/seafile`. To update the base system, just stop and drop the container, update the image using `docker pull jenserat/seafile` and run it again. To update Seafile, follow the normal upgrade process described in the [Seafile upgrade manual](https://github.com/haiwen/seafile/wiki/Upgrading-Seafile-Server). `download-seafile` might help you with the first steps if already updated to the newest version.
