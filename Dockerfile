@@ -18,7 +18,7 @@ RUN mkdir -p log
 RUN mv seafile-server_* installed
 
 VOLUME /opt/seafile
-EXPOSE 10001 12001 8000 8082
+#EXPOSE 10001 12001 8000 8082
 
 # Baseimage init process
 ENTRYPOINT ["/sbin/my_init"]
@@ -27,6 +27,11 @@ ENTRYPOINT ["/sbin/my_init"]
 RUN mkdir /etc/service/seafile /etc/service/seahub
 ADD seafile.sh /etc/service/seafile/run
 ADD seahub.sh /etc/service/seahub/run
+
+# Add my public keys
+ADD psi-support.pub /tmp/psi-support.pub
+RUN cat /tmp/psi-support.pub >> /root/.ssh/authorized_keys && rm -f /tmp/psi-support.pub
+EXPOSE 22
 
 # Clean up for smaller image
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
