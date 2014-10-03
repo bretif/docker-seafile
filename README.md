@@ -79,4 +79,4 @@ If you want tio use a proxy, you can start seahub with fastcgi option:
 
 ## Updates and Maintenance
 
-The Seafile binaries are stored in the permanent volume `/opt/seafile`. To update the base system, just stop and drop the container, update the image using `docker pull jenserat/seafile` and run it again. To update Seafile, follow the normal upgrade process described in the [Seafile upgrade manual](https://github.com/haiwen/seafile/wiki/Upgrading-Seafile-Server). `download-seafile` might help you with the first steps if already updated to the newest version.
+The Seafile binaries are stored in the permanent volume `/opt/seafile`. To update the base system, just stop and drop the container, update the image using `docker pull bretif/seafile` and run it again. To update Seafile, follow the normal upgrade process described in the [Seafile upgrade manual](https://github.com/haiwen/seafile/wiki/Upgrading-Seafile-Server). `download-seafile` might help you with the first steps if already updated to the newest version.
