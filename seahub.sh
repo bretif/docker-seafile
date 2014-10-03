@@ -4,7 +4,8 @@
 
 if [ "${fcgi}" = 'true' ];
 then
-    /opt/seafile/seafile-server-latest/seahub.sh start-fastcgi 8000 >> /opt/seafile/logs/seafile.log 2>&1
+    export SEAFILE_FASTCGI_HOST=0.0.0.0
+    /opt/seafile/seafile-server-latest/seahub.sh start-fastcgi >> /opt/seafile/logs/seafile.log 2>&1
 else
     /opt/seafile/seafile-server-latest/seahub.sh start >> /opt/seafile/logs/seafile.log 2>&1
 fi
