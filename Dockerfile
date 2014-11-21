@@ -1,5 +1,5 @@
 FROM		phusion/baseimage
-MAINTAINER	Bertrand RETIF  <bretif@sudokeys.com>
+MAINTAINER	Guilhem Berna  <guilhem.berna@gmail.com>
 
 RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && \
