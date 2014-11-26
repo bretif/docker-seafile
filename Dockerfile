@@ -37,7 +37,7 @@ RUN rm seafile-server/check_init_admin.py
 RUN rm seafile-server/setup-seafile-mysql.py
 #Seafile configuration at startup
 RUN mkdir -p /etc/my_init.d
-#ADD scripts/setup-seafile-mysql.sh /etc/my_init.d/setup-seafile-mysql.sh
+ADD scripts/setup-seafile-mysql.sh /etc/my_init.d/setup-seafile-mysql.sh
 ADD scripts/check_init_admin.py /opt/seafile/seafile-server/check_init_admin.py
 ADD scripts/setup-seafile-mysql.py /opt/seafile/seafile-server/setup-seafile-mysql.py
 
