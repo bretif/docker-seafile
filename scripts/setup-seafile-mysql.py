@@ -1205,24 +1205,23 @@ def main():
     #seafile_config.ask_questions()
     #seahub_config.ask_questions()
     
-    ccnet_config.port = os.environ.get('CCNET_PORT')
+    ccnet_config.port = int(os.environ.get('CCNET_PORT'))
     ccnet_config.server_name = os.environ.get('CCNET_NAME')
     ccnet_config.ip_or_domain = os.environ.get('CCNET_IP')
     seafile_config.seafile_dir = os.path.join(env_mgr.top_dir, 'seafile-data')
-    seafile_config.port = os.environ.get('SEAFILE_PORT')
-    seafile_config.fileserver_port = os.environ.get('FILESERVER_PORT')
+    seafile_config.port = int(os.environ.get('SEAFILE_PORT'))
+    seafile_config.fileserver_port = int(os.environ.get('FILESERVER_PORT'))
     
     if os.environ.get('EXISTING_DB') == 'true':
         db_config = ExistingDBConfigurator()
         db_config.mysql_host = os.environ.get('MYSQL_HOST')
-        db_config.mysql_port = os.environ.get('MYSQL_PORT')
+        db_config.mysql_port = int(os.environ.get('MYSQL_PORT'))
     else:
         db_config = NewDBConfigurator()
         db_config.mysql_host = os.environ.get('MYSQL_HOST')
-        db_config.mysql_port = os.environ.get('MYSQL_PORT')
+        db_config.mysql_port = int(os.environ.get('MYSQL_PORT'))
         db_config.root_password = os.environ.get('MYSQL_ROOT_PASSWORD')
-        print "this is the root password : %s" % os.environ.get('MYSQL_ROOT_PASSWORD')
-        db_config.root_conn = db_config.check_mysql_user('root', os.environ.get('MYSQL_ROOT_PASSWORD'))
+        db_config.root_conn = db_config.check_mysql_user('root', db_config.root_password)
         
     db_config.seafile_mysql_user = os.environ.get('MYSQL_USER')
     db_config.seafile_mysql_password = os.environ.get('MYSQL_PASSWORD')
