@@ -301,7 +301,7 @@ def create_admin(email, passwd):
     else:
         print '\n\n'
         print '----------------------------------------'
-        print 'Successfully created seafile admin'
+        print "Successfully created seafile admin %s with password %s" % email, passwd
         print '----------------------------------------'
         print '\n\n'
 
@@ -354,8 +354,8 @@ def main():
 
     email = os.environ.get('SEAHUB_ADMIN_EMAIL')
     passwd = os.getenv('SEAHUB_ADMIN_PASSWORD', subprocess.check_output(['pwgen','-s','-1','16']))
+
     create_admin(email, passwd)
-    print "Admin user %s created with password %s" % email,passwd
 
 if __name__ == '__main__':
     try:
