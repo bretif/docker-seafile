@@ -353,7 +353,7 @@ def main():
         return
 
     email = os.environ.get('SEAHUB_ADMIN_EMAIL')
-    passwd = os.getenv('SEAHUB_ADMIN_PASSWORD', 'seahubadminpass')
+    passwd = os.getenv('SEAHUB_ADMIN_PASSWORD', subprocess.check_output(['pwgen','-s','-1','16']))
 
     create_admin(email, passwd)
 
