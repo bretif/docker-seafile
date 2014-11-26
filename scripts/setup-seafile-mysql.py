@@ -1224,7 +1224,7 @@ def main():
         db_config.root_conn = db_config.check_mysql_user('root', db_config.root_password)
         
     db_config.seafile_mysql_user = os.environ.get('MYSQL_USER')
-    db_config.seafile_mysql_password = os.environ.get('MYSQL_PASSWORD')
+    db_config.seafile_mysql_password = os.getenv('MYSQL_PASSWORD', subprocess.check_output(["pwgen", "-s -1 16"]))
     db_config.ccnet_db_name = os.environ.get('CCNET_DB_NAME')
     db_config.seafile_db_name = os.environ.get('SEAFILE_DB_NAME')
     db_config.seahub_db_name = os.environ.get('SEAHUB_DB_NAME')

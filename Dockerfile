@@ -19,6 +19,8 @@ ENV EXISTING_DB false
 ENV MYSQL_HOST mysql-container
 ENV MYSQL_PORT 3306
 ENV MYSQL_ROOT_PASSWORD thisisatest
+ENV MYSQL_USER seafileuser
+ENV SEAHUB_ADMIN_EMAIL seaadmin@sea.com
 ENV CCNET_DB_NAME ccnet-db
 ENV SEAFILE_DB_NAME seafile-db
 ENV SEAHUB_DB_NAME seahub-db
