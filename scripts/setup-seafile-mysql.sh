@@ -6,7 +6,7 @@
 
 set -e
 
-if [ -d "/opt/seafile/ccnet" ]
+if [ ${autostart} = 'true' -a -d /opt/seafile/ccnet ]
 then
 	echo "Configuration Found, loading it"
 	exit 0
