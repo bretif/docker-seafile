@@ -12,6 +12,14 @@ then
 	exit 0
 else
 	echo "No configuration found, Starting autoconfig"
+	MYSQL_USER=${MYSQL_USER:-seafileuser}
+	MYSQL_PASSWORD=${MYSQL_PASSWORD:-$(pwgen -s -1 16)}
+	SEAHUB_ADMIN_EMAIL=${SEAHUB_ADMIN_EMAIL:-seaadmin@sea.com}
+	SEAHUB_ADMIN_PASSWORD=${SEAHUB_ADMIN_PASSWORD:-$(pwgen -s -1 16)}
+	echo "MYSQL_USER=$MYSQL_USER"
+	echo "MYSQL_PASS=$MYSQL_PASSWORD"
+	echo "SEAHUB_ADMIN_EMAIL=$SEAHUB_ADMIN_EMAIL"
+	echo "SEAHUB_ADMIN_PASSWORD=$SEAHUB_ADMIN_PASSWORD"
 fi
 
 INSTALLPATH="/opt/seafile/seafile-server"

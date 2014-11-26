@@ -4,12 +4,24 @@ MAINTAINER	Guilhem Berna  <guilhem.berna@gmail.com>
 RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && \
     apt-get install -y ca-certificates && \
-    apt-get install -y python2.7 python-setuptools python-simplejson python-imaging sqlite3 python-mysqldb
+    apt-get install -y python2.7 python-setuptools python-simplejson python-imaging sqlite3 python-mysqldb pwgen
 
 RUN ulimit -n 30000
 
 ENV SEAFILE_VERSION 3.1.7
 ENV autostart true
+ENV CCNET_PORT 10001
+ENV CCNET_NAME my-seafile
+ENV CCNET_IP 10.1.1.127
+ENV SEAFILE_PORT 12001
+ENV FILESERVER_PORT 8082
+ENV EXISTING_DB false
+ENV MYSQL_HOST mysql-container
+ENV MYSQL_PORT 3306
+ENV MYSQL_ROOT_PASSWORD thisisatest
+ENV CCNET_DB_NAME ccnet-db
+ENV SEAFILE_DB_NAME seafile-db
+ENV SEAHUB_DB_NAME seahub-db
 
 # Interface the environment
 RUN mkdir /opt/seafile

@@ -1204,25 +1204,28 @@ def main():
     #ccnet_config.ask_questions()
     #seafile_config.ask_questions()
     #seahub_config.ask_questions()
-    ccnet_config.port = 10001
-    ccnet_config.server_name = 'my-seafile'
-    ccnet_config.ip_or_domain = '10.1.1.127'
+    
+    ccnet_config.port = os.environ.get('CCNET_PORT')
+    ccnet_config.server_name = os.environ.get('CCNET_NAME')
+    ccnet_config.ip_or_domain = os.environ.get('CCNET_IP')
     seafile_config.seafile_dir = os.path.join(env_mgr.top_dir, 'seafile-data')
-    seafile_config.port = 12001
-    seafile_config.fileserver_port = 8082
-
-    #db_config = ExistingDBConfigurator()
-    db_config = NewDBConfigurator()
-    db_config.mysql_host = 'mysql-container'
-    db_config.mysql_port = 3306
-    if db_config.use_existing_db == False:
-            db_config.root_password = 'ceciestuntest'
-            db_config.root_conn = db_config.check_mysql_user('root', db_config.root_password)
-    db_config.seafile_mysql_user = 'seafileuser'
-    db_config.seafile_mysql_password = 'seafilepass'
-    db_config.ccnet_db_name = 'ccnet-db'
-    db_config.seafile_db_name = 'seafile-db'
-    db_config.seahub_db_name = 'seahub-db'
+    seafile_config.port = os.environ.get('SEAFILE_PORT')
+    seafile_config.fileserver_port = os.environ.get('FILESERVER_PORT')
+    db_config.mysql_host = environ.get('MYSQL_HOST')
+    db_config.mysql_port = environ.get('MYSQL_PORT')
+    
+    if os.environ.get('EXISTING_DB') == 'true':
+        db_config = ExistingDBConfigurator()
+    else:
+        db_config = NewDBConfigurator()
+        db_config.root_password = environ.get('MYSQL_ROOT_PASSWORD')
+        db_config.root_conn = db_config.check_mysql_user('root', db_config.root_password)
+        
+    db_config.seafile_mysql_user = environ.get('MYSQL_USER')
+    db_config.seafile_mysql_password = environ.get('MYSQL_PASSWORD')
+    db_config.ccnet_db_name = environ.get('CCNET_DB_NAME')
+    db_config.seafile_db_name = environ.get('SEAFILE_DB_NAME')
+    db_config.seahub_db_name = environ.get('SEAHUB_DB_NAME')
     
     #db_config.ask_questions()
 
