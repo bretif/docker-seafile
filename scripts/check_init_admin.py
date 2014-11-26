@@ -352,8 +352,8 @@ def main():
     if not need_create_admin():
         return
 
-    email = environ.get('SEAHUB_ADMIN_EMAIL')
-    passwd = environ.get('SEAHUB_ADMIN_PASSWORD')
+    email = os.environ.get('SEAHUB_ADMIN_EMAIL')
+    passwd = os.environ.get('SEAHUB_ADMIN_PASSWORD')
 
     create_admin(email, passwd)
 
