@@ -301,7 +301,7 @@ def create_admin(email, passwd):
     else:
         print '\n\n'
         print '----------------------------------------'
-        print "Successfully created seafile admin %s with password %s" % email, passwd
+        print 'Successfully created seafile admin %s with password %s' % (email, passwd)
         print '----------------------------------------'
         print '\n\n'
 
