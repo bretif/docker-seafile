@@ -1221,6 +1221,7 @@ def main():
         db_config.mysql_host = os.environ.get('MYSQL_HOST')
         db_config.mysql_port = os.environ.get('MYSQL_PORT')
         db_config.root_password = os.environ.get('MYSQL_ROOT_PASSWORD')
+        print "this is the root password : %s" % os.environ.get('MYSQL_ROOT_PASSWORD')
         db_config.root_conn = db_config.check_mysql_user('root', os.environ.get('MYSQL_ROOT_PASSWORD'))
         
     db_config.seafile_mysql_user = os.environ.get('MYSQL_USER')
