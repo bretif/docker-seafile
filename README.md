@@ -6,7 +6,7 @@ with advanced features on file syncing, privacy protection and teamwork".
 This Dockerfile is based on JensErat/docker-seafile
 
 This Dockerfile install an environment for running seafile including startup scripts.
-You run the container and store the volume on your filesystem.
+Seafile will be autoconfigurated with the default parameters and running at the container startup
 
 ## Setup Db
 You can use a mysql/mariadb container, I personally use bretif/mariadb container
