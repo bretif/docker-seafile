@@ -6,13 +6,13 @@
 
 set -e
 
-[ "${autostart}" = 'true' ] || exit 0
+[ "${autoconf}" = 'true' ] || exit 0
 if [ -d /opt/seafile/ccnet ]
 then
-	echo "Configuration Found, loading it"
+	echo "Configuration Found, not running the autoconf script"
 	exit 0
 else
-	echo "No configuration found, Starting autoconfig"
+	echo "No configuration found, Starting the python autoconf script"
 fi
 
 INSTALLPATH="/opt/seafile/seafile-server"

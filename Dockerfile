@@ -10,6 +10,7 @@ RUN ulimit -n 30000
 
 ENV SEAFILE_VERSION 3.1.7
 ENV autostart true
+ENV autoconf true
 ENV CCNET_PORT 10001
 ENV CCNET_NAME my-seafile
 ENV CCNET_IP 10.1.1.127
