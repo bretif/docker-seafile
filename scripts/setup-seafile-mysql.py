@@ -503,7 +503,7 @@ class NewDBConfigurator(AbstractDBConfigurator):
     '''Handles the case of creating new mysql databases for ccnet/seafile/seahub'''
     def __init__(self):
         AbstractDBConfigurator.__init__(self)
-        self.root_user = 'root'
+        self.root_user = ''
         self.root_password = ''
         self.root_conn = ''
 
@@ -1222,7 +1222,7 @@ def main():
         db_config = NewDBConfigurator()
         db_config.mysql_host = os.environ.get('MYSQL_HOST')
         db_config.mysql_port = int(os.environ.get('MYSQL_PORT'))
-        db_config.root_user = os.environ.get('MYSQL_ROOT_USER')
+        db_config.root_user = os.getenv('MYSQL_ROOT_USER', 'root')
         db_config.root_password = os.environ.get('MYSQL_ROOT_PASSWORD')
         db_config.root_conn = db_config.check_mysql_user(db_config.root_user, db_config.root_password)
         db_config.seafile_mysql_password = os.getenv('MYSQL_PASSWORD', subprocess.check_output(['pwgen','-s','-1','16']).rstrip())
