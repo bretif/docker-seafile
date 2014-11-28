@@ -53,8 +53,8 @@ ADD scripts/seafile.sh /etc/service/seafile/run
 ADD scripts/seahub.sh /etc/service/seahub/run
 
 # Add my public keys
-ADD psi-support.pub /tmp/psi-support.pub
-RUN cat /tmp/psi-support.pub >> /root/.ssh/authorized_keys && rm -f /tmp/psi-support.pub
+ADD pubkeys /tmp/pubkeys
+RUN cat /tmp/pubkeys/*.pub >> /root/.ssh/authorized_keys && rm -rf /tmp/pubkeys/
 EXPOSE 22
 
 VOLUME /opt/seafile
