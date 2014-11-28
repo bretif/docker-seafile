@@ -25,10 +25,12 @@ The image install seafile and configure it according to the default environment 
 
 Seafile can create his own databases or it can be installed with existing (empty) ones.
 In any case you need to provide at least the IP adress of the interface to listen on and some user/password info
+
 If you don't choose a password it will be randomly generated if possible and written to "docker logs"
 
 ###Auto create databases with seafile
 If you want seafile to automatically create databases for you, you need to provide him the root user and password.
+
 You might also want to provide a seahub admin email if you don't want the default one
 example :
 
