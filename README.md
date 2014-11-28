@@ -32,6 +32,7 @@ If you don't choose a password it will be randomly generated if possible and wri
 If you want seafile to automatically create databases for you, you need to provide him the root user and password.
 
 You might also want to provide a seahub admin email if you don't want the default one
+
 example :
 
     docker run -d --name "myseafile" \
