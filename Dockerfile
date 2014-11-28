@@ -1,10 +1,15 @@
-FROM		phusion/baseimage
+FROM		phusion/baseimage:0.9.15
 MAINTAINER	Guilhem Berna  <guilhem.berna@gmail.com>
 
-RUN export DEBIAN_FRONTEND=noninteractive && \
-    apt-get update && \
-    apt-get install -y ca-certificates && \
-    apt-get install -y python2.7 python-setuptools python-simplejson python-imaging sqlite3 python-mysqldb pwgen
+RUN apt-get update && apt-get install -y \
+	ca-certificates \
+	python2.7 \
+	python-setuptools \
+	python-simplejson \
+	python-imaging \
+	sqlite3 \
+	python-mysqldb \
+	pwgen
 
 RUN ulimit -n 30000
 
