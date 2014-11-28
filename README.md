@@ -5,11 +5,11 @@ with advanced features on file syncing, privacy protection and teamwork".
 
 This Dockerfile is based on JensErat/docker-seafile
 
-This Dockerfile install an environment for running seafile including startup scripts.
-You run the container and store the volume on your filesystem.
+This Dockerfile install an environment to run seafile.
+Seafile will be autoconfigurated with the default parameters and running at the container startup
 
 ## Setup Db
-You can use a mysql/mariadb container, I personally use bretif/mariadb container
+You can use a mysql/mariadb container or any other database you already have installed, I personally use bretif/mariadb container
 
 Run it
 
@@ -19,64 +19,94 @@ Get mariadb root password
 
     docker logs mariadb 
 
-As seafile installer create account @locahost in db, you need to create manually user and db
-From your host launch mysql client, and create users and dbs
-
 ## Setup Seafile
 
-The image only prepares the base system and provides some support during installation. [Read through the setup manual](https://github.com/haiwen/seafile/wiki/Download-and-setup-seafile-server) before setting up Seafile.
+The image install seafile and configure it according to the default environment variables in the Dockerfile and the variables you give it at runtime. 
 
-Run the image in a container, exposing ports as needed and making `/opt/seafile` permanent. For setting seafile up, maintaining its configuration or performing updates, make sure to start a shell. As the image builds on [`phusion/baseimage`](https://github.com/phusion/baseimage-docker), do so by attaching `-- /bin/bash` as parameter.
+Seafile can create his own databases or it can be installed with existing (empty) ones.
+In any case you need to provide at least the IP adress of the interface to listen on and some user/password info
+
+If you don't choose a password it will be randomly generated if possible and written to "docker logs"
+
+###Auto create databases with seafile
+If you want seafile to automatically create databases for you, you need to provide him the root user and password.
+
+You might also want to provide a seahub admin email if you don't want the default one
+
+example :
+
+    docker run -d --name "myseafile" \
+      -p 10001:10001 -p 12001:12001 -p 8000:8000 -p 8082:8082 \
+      --link mariadb:mysql-container \
+      -e "CCNET_IP=192.168.0.100" -e "MYSQL_ROOT_USER=dataadmin" \ 
+      -e "MYSQL_ROOT_PASSWORD=rootpass" -e "SEAHUB_ADMIN_EMAIL=seafileadmin@yourdomain.com" \
+      Guilhem30/seafile 
+      
+
+###Existing databases (no root password needed)
+If you want to use existing databases you need to provide the mysql user and password for those databases and their names (or the script will look for the default ones).
+
+:warning: Databases must be empty at seafile installation or it will crash!
 
 For example, you could use
 
-    docker run -t -i \
-      -p 10001:10001 \
-      -p 12001:12001 \
-      -p 8000:8000 \
-      -p 8082:8082 \
-      --link mariadb:db \
-      -v /srv/seafile:/opt/seafile \
-      bretif/seafile -- /bin/bash
+    docker run -d --name "myseafile" \
+      -p 10001:10001 -p 12001:12001 -p 8000:8000 -p 8082:8082 \
+      --link mariadb:mysql-container \
+      -e "CCNET_IP=192.168.0.100" -e "EXISTING_DB=true" -e "SEAHUB_ADMIN_EMAIL=seafileadmin@yourdomain.com" \
+      -e "MYSQL_USER=myseafileuser" -e "MYSQL_PASSWORD=myseafilepass" \
+      Guilhem30/seafile   
+      
+##All configuration options      
+
+All the environment variables and their default values
+
+    autostart true
+    autoconf true
+    fcgi false
+    CCNET_IP
+    CCNET_PORT 10001
+    CCNET_NAME my-seafile
+    SEAFILE_PORT 12001
+    FILESERVER_PORT 8082
+    EXISTING_DB false
+    MYSQL_HOST mysql-container
+    MYSQL_PORT 3306
+    MYSQL_ROOT_USER root
+    MYSQL_ROOT_PASSWORD
+    MYSQL_USER seafileuser
+    MYSQL_PASSWORD randomly generated
+    SEAHUB_ADMIN_EMAIL seaadmin@sea.com
+    SEAHUB_ADMIN_PASSWORD randomly generated
+    CCNET_DB_NAME ccnet-db
+    SEAFILE_DB_NAME seafile-db
+    SEAHUB_DB_NAME seahub-db
+
 
 Consider using a reverse proxy for using HTTPs.
-
-1. Run `/opt/seafile/seafile-server-3.*/setup-seafile-mysql.sh`, and go through the setup assistant. Do not change the port and storage location defaults, but change the run command appropriately.
-The db host is 'db' thant to --link
-3. Run `/opt/seafile/seafile-server-latest/seahub.sh start` for configuring the web UI.
-4. If you want, do more configuration of Seafile. You can also already try it out.
-5. Setting up Seafile is finished, `exit` the container.
-
-## Running Seafile
-
-Run the image again, this time you probably want to give it a name for using some startup scripts. You will not need an interactive shell for normal operation. **The image will autostart the `seafile` and `seahub` processes if the environment variable `autostart=true` is set.** A reasonable docker command is
-
-    docker run -d \
-      --name seafile \
-      -p 10001:10001 \
-      -p 12001:12001 \
-      -p 8000:8000 \
-      -p 8082:8082 \
-      --link mariadb:db \
-      -v /srv/seafile:/opt/seafile \
-      -e autostart=true \
-      bretif/seafile
-
-If you want tio use a proxy, you can start seahub with fastcgi option:
-
-    docker run -d \
-      --name seafile \
-      -p 10001:10001 \
-      -p 12001:12001 \
-      -p 8000:8000 \
-      -p 8082:8082 \
-      --link mariadb:db \
-      -v /srv/seafile:/opt/seafile \
-      -e autostart=true \
-      -e fcgi=true \
-      bretif/seafile
 
 
 ## Updates and Maintenance
 
-The Seafile binaries are stored in the permanent volume `/opt/seafile`. To update the base system, just stop and drop the container, update the image using `docker pull bretif/seafile` and run it again. To update Seafile, follow the normal upgrade process described in the [Seafile upgrade manual](http://manual.seafile.com/deploy/upgrade.html). `download-seafile` might help you with the first steps if already updated to the newest version.
+The Seafile directory is stored in the permanent volume `/opt/seafile`. To update the base system or the seafile running options, just stop the container, update the image using `docker pull guilhem30/seafile` and run another container with autoconf disabled and the --volumes-from option
+
+example :
+
+    docker run -d --name "myseafile2" \
+     -p 10001:10001 -p 12001:12001 -p 8000:8000 -p 8082:8082 \
+     --link mariadb:mysql-container \ 
+     -e "autoconf=false" \
+     --volumes-from myseafile \
+     Guilhem30/seafile   
+
+. To update Seafile, you should start another container with the same volume mounted but also autostart disabled and then follow the normal upgrade process described in the [Seafile upgrade manual](http://manual.seafile.com/deploy/upgrade.html). 
+
+example :
+
+    docker run -d --name "seafileUpdater" \
+     -p 10001:10001 -p 12001:12001 -p 8000:8000 -p 8082:8082 \
+     --link mariadb:mysql-container \ 
+     -e "autoconf=false" \
+     -e "autostart=false" \
+     --volumes-from myseafile \
+     Guilhem30/seafile   
