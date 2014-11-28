@@ -42,9 +42,8 @@ example :
       -e "MYSQL_ROOT_PASSWORD=rootpass" -e "SEAHUB_ADMIN_EMAIL=seafileadmin@yourdomain.com" \
       Guilhem30/seafile 
       
-if you don't want to give your database root password, keep reading
 
-###Existing databases   
+###Existing databases (no root password needed)
 If you want to use existing databases you need to provide the mysql user and password for those databases and their names (or the script will look for the default ones).
 
 :warning: Databases must be empty at seafile installation or it will crash!
