@@ -1,4 +1,4 @@
-FROM		phusion/baseimage:0.9.15
+FROM		guilhem30/sudokeys:0.1
 MAINTAINER	Guilhem Berna  <guilhem.berna@gmail.com>
 
 RUN apt-get update && apt-get install -y \
@@ -8,8 +8,7 @@ RUN apt-get update && apt-get install -y \
 	python-simplejson \
 	python-imaging \
 	sqlite3 \
-	python-mysqldb \
-	pwgen
+	python-mysqldb 
 
 RUN ulimit -n 30000
 
@@ -38,7 +37,7 @@ RUN tar xzf seafile-server_${SEAFILE_VERSION}_x86-64.tar.gz
 RUN rm seafile-server_${SEAFILE_VERSION}_x86-64.tar.gz
 RUN mv seafile-server* seafile-server
 RUN mkdir -p logs
-RUN ln -sf /dev/stdout /opt/seafile/logs/seafile.log
+#RUN ln -sf /dev/stdout /opt/seafile/logs/seafile.log
 RUN rm seafile-server/check_init_admin.py
 RUN rm seafile-server/setup-seafile-mysql.py
 #Seafile configuration at startup
@@ -52,11 +51,6 @@ RUN chown -R seafile:seafile /opt/seafile
 RUN mkdir /etc/service/seafile /etc/service/seahub
 ADD scripts/seafile.sh /etc/service/seafile/run
 ADD scripts/seahub.sh /etc/service/seahub/run
-
-# Add my public keys
-ADD pubkeys /tmp/pubkeys
-RUN cat /tmp/pubkeys/*.pub >> /root/.ssh/authorized_keys && rm -rf /tmp/pubkeys/
-EXPOSE 22
 
 VOLUME /opt/seafile
 #EXPOSE 10001 12001 8000 8082
