@@ -5,9 +5,9 @@
 if [ "${fcgi}" = 'true' ];
 then
     export SEAFILE_FASTCGI_HOST=0.0.0.0
-    /opt/seafile/seafile-server-latest/seahub.sh start-fastcgi >> /opt/seafile/logs/seafile.log 2>&1
+exec /sbin/setuser seafile /opt/seafile/seafile-server-latest/seahub.sh start-fastcgi >> /opt/seafile/logs/seafile.log 2>&1
 else
-    /opt/seafile/seafile-server-latest/seahub.sh start >> /opt/seafile/logs/seafile.log 2>&1
+exec /sbin/setuser seafile /opt/seafile/seafile-server-latest/seahub.sh start >> /opt/seafile/logs/seafile.log 2>&1
 fi
 
 # Script should not exit unless seahub died

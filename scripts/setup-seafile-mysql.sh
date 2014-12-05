@@ -5,7 +5,6 @@
 ########
 
 set -e
-
 [ "${autoconf}" = 'true' ] || exit 0
 if [ -d /opt/seafile/ccnet ]
 then
@@ -98,4 +97,4 @@ check_python;
 
 export PYTHON=$PYTHON
 
-exec $PYTHON "$python_script"
+exec /sbin/setuser seafile $PYTHON "$python_script"

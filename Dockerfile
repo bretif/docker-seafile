@@ -31,7 +31,7 @@ ENV SEAFILE_DB_NAME seafile-db
 ENV SEAHUB_DB_NAME seahub-db
 
 # Interface the environment
-RUN mkdir /opt/seafile
+RUN useradd -d /opt/seafile -m seafile
 WORKDIR /opt/seafile
 RUN curl -L -O https://bitbucket.org/haiwen/seafile/downloads/seafile-server_${SEAFILE_VERSION}_x86-64.tar.gz
 RUN tar xzf seafile-server_${SEAFILE_VERSION}_x86-64.tar.gz
@@ -46,6 +46,7 @@ RUN mkdir -p /etc/my_init.d
 ADD scripts/setup-seafile-mysql.sh /etc/my_init.d/setup-seafile-mysql.sh
 ADD scripts/check_init_admin.py /opt/seafile/seafile-server/check_init_admin.py
 ADD scripts/setup-seafile-mysql.py /opt/seafile/seafile-server/setup-seafile-mysql.py
+RUN chown -R seafile:seafile /opt/seafile
 
 # Seafile daemons
 RUN mkdir /etc/service/seafile /etc/service/seahub
