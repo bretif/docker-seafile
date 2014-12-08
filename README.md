@@ -13,7 +13,7 @@ You can use a mysql/mariadb container or any other database you already have ins
 
 Run it
 
-    docker run -d --name="mariadb" -p 127.0.0.1:3306:3306 -e USER="root" -e PASS="$(pwgen -s -1 16)" bretif/mariadb
+    docker run -d --name="mariadb" guilhem30/mariadb
 
 Get mariadb root password
 
@@ -24,7 +24,8 @@ Get mariadb root password
 The image install seafile and configure it according to the default environment variables in the Dockerfile and the variables you give it at runtime. 
 
 Seafile can create his own databases or it can be installed with existing (empty) ones.
-In any case you need to provide at least the IP adress of the interface to listen on and some user/password info
+
+In any case **you need to provide at least the IP adress of the interface to listen on and some user/password info**
 
 If you don't choose a password it will be randomly generated if possible and written to "docker logs"
 
@@ -40,7 +41,7 @@ example :
       --link mariadb:mysql-container \
       -e "CCNET_IP=192.168.0.100" -e "MYSQL_ROOT_USER=dataadmin" \ 
       -e "MYSQL_ROOT_PASSWORD=rootpass" -e "SEAHUB_ADMIN_EMAIL=seafileadmin@yourdomain.com" \
-      Guilhem30/seafile 
+      guilhem30/seafile 
       
 
 ###Existing databases (no root password needed)
@@ -55,7 +56,7 @@ For example, you could use
       --link mariadb:mysql-container \
       -e "CCNET_IP=192.168.0.100" -e "EXISTING_DB=true" -e "SEAHUB_ADMIN_EMAIL=seafileadmin@yourdomain.com" \
       -e "MYSQL_USER=myseafileuser" -e "MYSQL_PASSWORD=myseafilepass" \
-      Guilhem30/seafile   
+      guilhem30/seafile   
       
 ##All configuration options      
 
@@ -98,7 +99,7 @@ example :
      --link mariadb:mysql-container \ 
      -e "autoconf=false" \
      --volumes-from myseafile \
-     Guilhem30/seafile   
+     guilhem30/seafile   
 
 . To update Seafile, you should start another container with the same volume mounted but also autostart disabled and then follow the normal upgrade process described in the [Seafile upgrade manual](http://manual.seafile.com/deploy/upgrade.html). 
 
@@ -110,4 +111,4 @@ example :
      -e "autoconf=false" \
      -e "autostart=false" \
      --volumes-from myseafile \
-     Guilhem30/seafile   
+     guilhem30/seafile   
