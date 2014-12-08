@@ -9,7 +9,7 @@ This Dockerfile install an environment to run seafile.
 Seafile will be autoconfigurated with the default parameters and running at the container startup
 
 ## Setup Db
-You can use a mysql/mariadb container or any other database you already have installed, I personally use bretif/mariadb container
+You can use a mysql/mariadb container or any other database you already have installed.
 
 Run it
 
@@ -101,7 +101,7 @@ example :
      --volumes-from myseafile \
      guilhem30/seafile   
 
-. To update Seafile, you should start another container with the same volume mounted but also autostart disabled and then follow the normal upgrade process described in the [Seafile upgrade manual](http://manual.seafile.com/deploy/upgrade.html). 
+To update Seafile, you should start another container with the same volume mounted but also autostart disabled and then follow the normal upgrade process described in the [Seafile upgrade manual](http://manual.seafile.com/deploy/upgrade.html). 
 
 example :
 
