@@ -28,7 +28,7 @@ ENV SEAHUB_ADMIN_EMAIL seaadmin@sea.com
 ENV CCNET_DB_NAME ccnet-db
 ENV SEAFILE_DB_NAME seafile-db
 ENV SEAHUB_DB_NAME seahub-db
-
+ENV SEAHUB_PORT 8000
 # Interface the environment
 RUN useradd -d /opt/seafile -m seafile
 WORKDIR /opt/seafile

@@ -61,26 +61,27 @@ For example, you could use
 
 All the environment variables and their default values
 
-    autostart true
-    autoconf true
-    fcgi false
+    autostart					true
+    autoconf					true
+    fcgi						false
     CCNET_IP
-    CCNET_PORT 10001
-    CCNET_NAME my-seafile
-    SEAFILE_PORT 12001
-    FILESERVER_PORT 8082
-    EXISTING_DB false
-    MYSQL_HOST mysql-container
-    MYSQL_PORT 3306
-    MYSQL_ROOT_USER root
+    CCNET_PORT					10001
+    CCNET_NAME 				my-seafile
+    SEAFILE_PORT				12001
+    FILESERVER_PORT			8082
+    EXISTING_DB 				false
+    MYSQL_HOST 				mysql-container
+    MYSQL_PORT 				3306
+    MYSQL_ROOT_USER 			root
     MYSQL_ROOT_PASSWORD
-    MYSQL_USER seafileuser
-    MYSQL_PASSWORD randomly generated
-    SEAHUB_ADMIN_EMAIL seaadmin@sea.com
-    SEAHUB_ADMIN_PASSWORD randomly generated
-    CCNET_DB_NAME ccnet-db
-    SEAFILE_DB_NAME seafile-db
-    SEAHUB_DB_NAME seahub-db
+    MYSQL_USER 				seafileuser
+    MYSQL_PASSWORD 			randomly generated
+    SEAHUB_ADMIN_EMAIL 		seaadmin@sea.com
+    SEAHUB_ADMIN_PASSWORD 	randomly generated
+    CCNET_DB_NAME 			ccnet-db
+    SEAFILE_DB_NAME 			seafile-db
+    SEAHUB_DB_NAME			seahub-db
+    SEAHUB_PORT 				8000
 
 
 Consider using a reverse proxy for using HTTPs.
