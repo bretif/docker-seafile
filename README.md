@@ -1,4 +1,4 @@
-# Seafile 3 for Docker
+# Seafile 4 for Docker
 
 [Seafile](http://www.seafile.com/) is a "next-generation open source cloud storage
 with advanced features on file syncing, privacy protection and teamwork".

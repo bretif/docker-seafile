@@ -1,4 +1,4 @@
-FROM		guilhem30/sudokeys:0.1
+FROM		guilhem30/sudokeys
 MAINTAINER	Guilhem Berna  <guilhem.berna@gmail.com>
 
 RUN apt-get update && apt-get install -y \
@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y \
 
 RUN ulimit -n 30000
 
-ENV SEAFILE_VERSION 3.1.7
+ENV SEAFILE_VERSION 4.0.1
 ENV autostart true
 ENV autoconf true
 ENV fcgi false
