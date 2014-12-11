@@ -15,7 +15,7 @@ RUN ulimit -n 30000
 ENV SEAFILE_VERSION 4.0.1
 ENV autostart true
 ENV autoconf true
-ENV fcgi false
+ENV fcgi true
 ENV CCNET_PORT 10001
 ENV CCNET_NAME my-seafile
 ENV SEAFILE_PORT 12001
