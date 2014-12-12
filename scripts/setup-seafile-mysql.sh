@@ -12,6 +12,10 @@ then
 	exit 0
 else
 	echo "No configuration found, Starting the python autoconf script"
+	#Move seahub dir to Volume and make symbolic link
+	mkdir -p /var/www/seafile/${CCNET_IP}
+	mv /opt/seafile/seafile-server-${SEAFILE_VERSION}/seahub /var/www/seafile/${CCNET_IP}/
+	ln -s /var/www/seafile/${CCNET_IP}/seahub /opt/seafile/seafile-server-${SEAFILE_VERSION}/seahub
 fi
 
 INSTALLPATH="/opt/seafile/seafile-server-${SEAFILE_VERSION}"
