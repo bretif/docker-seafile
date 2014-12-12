@@ -23,5 +23,6 @@ else
 	sed -i "s/#DOMAIN NAME#/$CCNET_IP/g" "${nginxConfFile}"
 	sed -i 's|#SSL CERTIFICATE#|'$sslFullDir/$CCNET_IP'.crt|g' "${nginxConfFile}"
     sed -i 's|#SSL KEY#|'$sslFullDir/$CCNET_IP'.key|g' "${nginxConfFile}"
+    sed -i 's|#MEDIA DIR#|'/opt/seafile/nginx/${CCNET_IP}'.key|g' "${nginxConfFile}"
 fi
 
