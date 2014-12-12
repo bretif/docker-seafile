@@ -16,6 +16,7 @@ RUN ulimit -n 30000
 ENV SEAFILE_VERSION 4.0.1
 ENV autostart true
 ENV autoconf true
+ENV autonginx false
 ENV fcgi true
 ENV CCNET_PORT 10001
 ENV CCNET_NAME my-seafile
@@ -42,15 +43,17 @@ RUN mkdir -p logs
 RUN rm seafile-server-${SEAFILE_VERSION}/check_init_admin.py
 RUN rm seafile-server-${SEAFILE_VERSION}/setup-seafile-mysql.py
 RUN mkdir -p /etc/my_init.d
-ADD scripts/setup-seafile-mysql.sh /etc/my_init.d/setup-seafile-mysql.sh
-ADD scripts/check_init_admin.py /opt/seafile/seafile-server-${SEAFILE_VERSION}/check_init_admin.py
-ADD scripts/setup-seafile-mysql.py /opt/seafile/seafile-server-${SEAFILE_VERSION}/setup-seafile-mysql.py
+COPY scripts/setup-seafile-mysql.sh /etc/my_init.d/setup-seafile-mysql.sh
+COPY scripts/create_nginx_config.sh /etc/my_init.d/create_nginx_config.sh
+COPY scripts/check_init_admin.py /opt/seafile/seafile-server-${SEAFILE_VERSION}/check_init_admin.py
+COPY scripts/setup-seafile-mysql.py /opt/seafile/seafile-server-${SEAFILE_VERSION}/setup-seafile-mysql.py
+COPY nginx.conf /root/seafile.conf
 RUN chown -R seafile:seafile /opt/seafile
 
 # Seafile daemons
 RUN mkdir /etc/service/seafile /etc/service/seahub
-ADD scripts/seafile.sh /etc/service/seafile/run
-ADD scripts/seahub.sh /etc/service/seahub/run
+COPY scripts/seafile.sh /etc/service/seafile/run
+COPY scripts/seahub.sh /etc/service/seahub/run
 
 VOLUME /opt/seafile
 #EXPOSE 10001 12001 8000 8082
