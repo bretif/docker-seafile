@@ -16,6 +16,7 @@ else
 	mkdir -p /var/www/seafile/${CCNET_IP}
 	mv /opt/seafile/seafile-server-${SEAFILE_VERSION}/seahub /var/www/seafile/${CCNET_IP}/
 	ln -s /var/www/seafile/${CCNET_IP}/seahub /opt/seafile/seafile-server-${SEAFILE_VERSION}/seahub
+	chown seafile:seafile /opt/seafile/seafile-server-${SEAFILE_VERSION}/seahub
 fi
 
 INSTALLPATH="/opt/seafile/seafile-server-${SEAFILE_VERSION}"
