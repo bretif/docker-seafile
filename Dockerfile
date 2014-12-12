@@ -35,16 +35,20 @@ WORKDIR /opt/seafile
 RUN curl -L -O https://bitbucket.org/haiwen/seafile/downloads/seafile-server_${SEAFILE_VERSION}_x86-64.tar.gz
 RUN tar xzf seafile-server_${SEAFILE_VERSION}_x86-64.tar.gz
 RUN rm seafile-server_${SEAFILE_VERSION}_x86-64.tar.gz
-RUN mv seafile-server* seafile-server
+
+#Move seahub dir to Volume and make symbolic link
+RUN mkdir -p /var/www/seafile/${CCNET_IP}
+RUN mv seafile-server_${SEAFILE_VERSION}/seahub /var/www/seafile/${CCNET_IP}/
+RUN ln -s /var/www/seafile/${CCNET_IP}/seahub seafile-server_${SEAFILE_VERSION}/seahub
+
 RUN mkdir -p logs
-#RUN ln -sf /dev/stdout /opt/seafile/logs/seafile.log
-RUN rm seafile-server/check_init_admin.py
-RUN rm seafile-server/setup-seafile-mysql.py
+RUN rm seafile-server_${SEAFILE_VERSION}/check_init_admin.py
+RUN rm seafile-server_${SEAFILE_VERSION}/setup-seafile-mysql.py
 #Seafile configuration at startup
 RUN mkdir -p /etc/my_init.d
 ADD scripts/setup-seafile-mysql.sh /etc/my_init.d/setup-seafile-mysql.sh
-ADD scripts/check_init_admin.py /opt/seafile/seafile-server/check_init_admin.py
-ADD scripts/setup-seafile-mysql.py /opt/seafile/seafile-server/setup-seafile-mysql.py
+ADD scripts/check_init_admin.py /opt/seafile/seafile-server_${SEAFILE_VERSION}/check_init_admin.py
+ADD scripts/setup-seafile-mysql.py /opt/seafile/seafile-server_${SEAFILE_VERSION}/setup-seafile-mysql.py
 RUN chown -R seafile:seafile /opt/seafile
 
 # Seafile daemons
