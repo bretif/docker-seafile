@@ -14,7 +14,7 @@ else
 	echo "No configuration found, Starting the python autoconf script"
 fi
 
-INSTALLPATH="/opt/seafile/seafile-server_${SEAFILE_VERSION}"
+INSTALLPATH="/opt/seafile/seafile-server-${SEAFILE_VERSION}"
 
 cd "$INSTALLPATH"
 
