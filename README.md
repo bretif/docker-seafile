@@ -67,10 +67,10 @@ then run seafile with --volumes-from to allow it to create the configuration fil
 
 For SEAFILE_IP you can use the static ip of the container (not very flexible), the host ip if you expose ports, or some dns discovery like skydock/skydns (used in this example)
 
-     docker run -d --name "myseafile"  -e "CCNET_IP=myfiles.mydomain.com" -e "MYSQL_ROOT_USER=root" \
-     -e    "MYSQL_ROOT_PASSWORD=rootpass" -e "SEAHUB_ADMIN_EMAIL=admin@yourdomain.com" \
-     -e "SEAFILE_IP=myseafile.seafile.dev.docker" -e "MYSQL_HOST=mydatabase.mariadb.dev.docker" \
-     --volumes-from nginx seafile
+     docker run -d --name "myseafile"  -e fcgi=true -e autonginx=true -e "CCNET_IP=myfiles.mydomain.com" \
+     -e "MYSQL_ROOT_USER=root" -e "MYSQL_ROOT_PASSWORD=rootpass" \
+     -e "SEAHUB_ADMIN_EMAIL=admin@yourdomain.com" -e "SEAFILE_IP=myseafile.seafile.dev.docker" \
+     -e "MYSQL_HOST=mydatabase.mariadb.dev.docker" --volumes-from nginx seafile
 
 just restart nginx after each new seafile container launch to make it reload his configuration
 
@@ -82,6 +82,7 @@ All the environment variables and their default values
 
     autostart					true
     autoconf					true
+    autonginx                   false
     fcgi						false
     CCNET_IP
     SEAFILE_IP
