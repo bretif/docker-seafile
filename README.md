@@ -105,8 +105,6 @@ All the environment variables and their default values
     SEAHUB_PORT 				8000
     STATIC_FILES_DIR            /opt/seafile/nginx/
 
-Consider using a reverse proxy for using HTTPs.
-
 
 ## Updates and Maintenance
 
