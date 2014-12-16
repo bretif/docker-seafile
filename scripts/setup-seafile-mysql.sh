@@ -4,21 +4,14 @@
 ### This script is a wrapper for setup-seafile-mysql.py
 ########
 
-set -e
 [ "${autoconf}" = 'true' ] || exit 0
+
 if [ -d /opt/seafile/ccnet ]
 then
 	echo "Configuration Found, not running the autoconf script"
 	exit 0
 else
 	echo "No configuration found, Starting the python autoconf script"
-	#Move seahub dir to Volume and make symbolic link
-	mkdir -p /opt/seafile/nginx/${CCNET_IP}
-	cp -R /opt/seafile/seafile-server-${SEAFILE_VERSION}/seahub/media /opt/seafile/nginx/${CCNET_IP}
-	rm -R /opt/seafile/seafile-server-${SEAFILE_VERSION}/seahub/media
-	ln -s /opt/seafile/nginx/${CCNET_IP}/media /opt/seafile/seafile-server-${SEAFILE_VERSION}/seahub/media
-	chown -R seafile:seafile /opt/seafile/nginx
-	chown -h seafile:seafile /opt/seafile/seafile-server-${SEAFILE_VERSION}/seahub/media
 fi
 
 INSTALLPATH="/opt/seafile/seafile-server-${SEAFILE_VERSION}"
