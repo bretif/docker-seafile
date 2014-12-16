@@ -22,8 +22,8 @@ RUN mkdir -p logs
 # Config env variables
 ENV autostart true
 ENV autoconf true
-ENV autonginx true
-ENV fcgi true
+ENV autonginx false
+ENV fcgi false
 ENV CCNET_PORT 10001
 ENV CCNET_NAME my-seafile
 ENV SEAFILE_PORT 12001
