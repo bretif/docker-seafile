@@ -61,5 +61,3 @@ VOLUME /opt/seafile
 # Baseimage init process
 ENTRYPOINT ["/sbin/my_init"]
 
-# Clean up for smaller image
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
