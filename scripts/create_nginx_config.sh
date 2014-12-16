@@ -6,11 +6,11 @@ sslFullDir="${sslBaseDir}/${CCNET_IP}"
 nginxConfFile="${CCNET_IP}.conf"
 
 [ "${autonginx}" = 'true' ] || exit 0
-if [ -f /etc/nginx/sites-enabled/"${nginxConfFile}" ]
+if [ -f /etc/nginx/sites-available/"${nginxConfFile}" ]
 then
 	echo "Nginx configuration Found, no need to create it"
 else
-	cd /etc/nginx/sites-enabled/
+	cd /etc/nginx/sites-available/
 	echo "No Nginx configuration found, Creating it from the template"
 	mv /root/seafile.conf ./"${nginxConfFile}"
 	mkdir -p $sslFullDir
@@ -24,5 +24,6 @@ else
 	sed -i 's|#SSL CERTIFICATE#|'$sslFullDir/$CCNET_IP'.crt|g' "${nginxConfFile}"
 	sed -i 's|#SSL KEY#|'$sslFullDir/$CCNET_IP'.key|g' "${nginxConfFile}"
 	sed -i 's|#MEDIA DIR#|'/opt/seafile/nginx/${CCNET_IP}'|g' "${nginxConfFile}"
+        ln -s /etc/nginx/sites-available/"${nginxConfFile}" /etc/nginx/sites-enabled/"${nginxConfFile}"
 fi
 
