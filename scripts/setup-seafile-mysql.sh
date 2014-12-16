@@ -6,6 +6,7 @@
 
 [ "${autoconf}" = 'true' ] || exit 0
 
+
 if [ -d /opt/seafile/ccnet ]
 then
 	echo "Configuration Found, not running the autoconf script"
@@ -13,6 +14,13 @@ then
 else
 	echo "No configuration found, Starting the python autoconf script"
 fi
+
+if [ -z $CCNET_IP ] || ([ -z $MYSQL_ROOT_PASSWORD ]  &&  [ -z $MYSQL_PASSWORD ])
+then
+        echo "Seafile can't run because some important parameters are missing for the configuration. Have you read https://github.com/Guilhem30/docker-seafile ?"
+        exit 1
+fi
+
 
 INSTALLPATH="/opt/seafile/seafile-server-${SEAFILE_VERSION}"
 

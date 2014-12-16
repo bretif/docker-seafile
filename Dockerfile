@@ -45,7 +45,7 @@ RUN rm seafile-server-${SEAFILE_VERSION}/check_init_admin.py
 RUN rm seafile-server-${SEAFILE_VERSION}/setup-seafile-mysql.py
 RUN mkdir -p /etc/my_init.d
 COPY scripts/setup-seafile-mysql.sh /etc/my_init.d/setup-seafile-mysql.sh
-COPY scripts/create_nginx_config.sh /etc/my_init.d/create_nginx_config.sh
+COPY scripts/create_nginx_config.sh /etc/my_init.d/z_create_nginx_config.sh
 COPY scripts/check_init_admin.py /opt/seafile/seafile-server-${SEAFILE_VERSION}/check_init_admin.py
 COPY scripts/setup-seafile-mysql.py /opt/seafile/seafile-server-${SEAFILE_VERSION}/setup-seafile-mysql.py
 COPY nginx.conf /root/seafile.conf

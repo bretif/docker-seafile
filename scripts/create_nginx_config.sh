@@ -5,6 +5,12 @@ sslFullDir="${sslBaseDir}/${CCNET_IP}"
 nginxConfFile="${CCNET_IP}.conf"
 
 [ "${autonginx}" = 'true' ] || exit 0
+
+if [ ! -d /etc/nginx ]
+then
+	echo "nginx directory not found! Have you mounted a volume for seafile to write nginx config ?"
+	exit 1
+fi
 if [ -f /etc/nginx/sites-available/"${nginxConfFile}" ]
 then
 	echo "Nginx configuration Found, no need to create it"
