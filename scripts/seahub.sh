@@ -2,6 +2,7 @@
 
 [ "${autostart}" = 'true' -a -x /opt/seafile/seafile-server-latest/seahub.sh ] || exit 0
 
+#wait for seafile before starting
 until pgrep -f "seafile-controller" 2>&1 >/dev/null; do
         sleep 1;
 done

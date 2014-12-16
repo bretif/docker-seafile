@@ -11,9 +11,15 @@ RUN apt-get update && apt-get install -y \
 	python-mysqldb 
 
 RUN ulimit -n 30000
+ENV SEAFILE_VERSION 4.0.1
+
+RUN useradd -d /opt/seafile -m seafile
+WORKDIR /opt/seafile
+RUN curl -L -O https://bitbucket.org/haiwen/seafile/downloads/seafile-server_${SEAFILE_VERSION}_x86-64.tar.gz
+RUN tar xzf seafile-server_${SEAFILE_VERSION}_x86-64.tar.gz
+RUN mkdir -p logs
 
 # Config env variables
-ENV SEAFILE_VERSION 4.0.1
 ENV autostart true
 ENV autoconf true
 ENV autonginx true
@@ -33,17 +39,13 @@ ENV SEAHUB_DB_NAME seahub-db
 ENV SEAHUB_PORT 8000
 ENV STATIC_FILES_DIR /opt/seafile/nginx/
 
-RUN useradd -d /opt/seafile -m seafile
-WORKDIR /opt/seafile
-RUN curl -L -O https://bitbucket.org/haiwen/seafile/downloads/seafile-server_${SEAFILE_VERSION}_x86-64.tar.gz
-RUN tar xzf seafile-server_${SEAFILE_VERSION}_x86-64.tar.gz
-RUN rm seafile-server_${SEAFILE_VERSION}_x86-64.tar.gz
-
-#Seafile configuration at startup
-RUN mkdir -p logs
+#removing default seafile installation scripts to replace them with our own
 RUN rm seafile-server-${SEAFILE_VERSION}/check_init_admin.py
 RUN rm seafile-server-${SEAFILE_VERSION}/setup-seafile-mysql.py
+
 RUN mkdir -p /etc/my_init.d
+
+#Adding all our scripts
 COPY scripts/setup-seafile-mysql.sh /etc/my_init.d/setup-seafile-mysql.sh
 COPY scripts/create_nginx_config.sh /etc/my_init.d/z_create_nginx_config.sh
 COPY scripts/check_init_admin.py /opt/seafile/seafile-server-${SEAFILE_VERSION}/check_init_admin.py
@@ -57,7 +59,7 @@ COPY scripts/seafile.sh /etc/service/seafile/run
 COPY scripts/seahub.sh /etc/service/seahub/run
 
 VOLUME /opt/seafile
-#EXPOSE 10001 12001 8000 8082
+EXPOSE 10001 12001 8000 8082
 
 # Baseimage init process
 ENTRYPOINT ["/sbin/my_init"]
