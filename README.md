@@ -58,6 +58,24 @@ For example, you could use
       -e "MYSQL_USER=myseafileuser" -e "MYSQL_PASSWORD=myseafilepass" \
       guilhem30/seafile   
       
+##Auto-configure Nginx
+Run nginx first with a volume where you want to store static files
+
+    docker run -d --name nginx -p 80:80 -p 443:443 -v /opt/seafile/nginx guilhem30/nginx
+    
+then run seafile with --volumes-from to allow it to create the configuration file, ssl certificates and copy his static files
+
+For SEAFILE_IP you can use the static ip of the container (not very flexible), the host ip if you expose ports, or some dns discovery like skydock/skydns (used in this example)
+
+     docker run -d --name "myseafile"  -e "CCNET_IP=myfiles.mydomain.com" -e "MYSQL_ROOT_USER=root" \
+     -e    "MYSQL_ROOT_PASSWORD=rootpass" -e "SEAHUB_ADMIN_EMAIL=admin@yourdomain.com" \
+     -e "SEAFILE_IP=myseafile.seafile.dev.docker" -e "MYSQL_HOST=mydatabase.mariadb.dev.docker" \
+     --volumes-from nginx seafile
+
+just restart nginx after each new seafile container launch to make it reload his configuration
+
+    docker restart nginx
+    
 ##All configuration options      
 
 All the environment variables and their default values
@@ -66,6 +84,7 @@ All the environment variables and their default values
     autoconf					true
     fcgi						false
     CCNET_IP
+    SEAFILE_IP
     CCNET_PORT					10001
     CCNET_NAME 			    	my-seafile
     SEAFILE_PORT				12001
@@ -83,7 +102,7 @@ All the environment variables and their default values
     SEAFILE_DB_NAME 			seafile-db
     SEAHUB_DB_NAME		    	seahub-db
     SEAHUB_PORT 				8000
-
+    STATIC_FILES_DIR            /opt/seafile/nginx/
 
 Consider using a reverse proxy for using HTTPs.
 
