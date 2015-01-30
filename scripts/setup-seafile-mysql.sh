@@ -17,7 +17,7 @@ fi
 
 if [ -z ${DOMAIN} ] || ([ -z ${MYSQL_ROOT_PASSWORD} ]  &&  [ -z ${MYSQL_PASSWORD} ])
 then
-        echo "Seafile can't run because some important parameters are missing for the configuration. Have you read https://github.com/Guilhem30/docker-seafile ?"
+        echo "Seafile can't run because some important parameters are missing for the configuration."
         exit 1
 fi
 
