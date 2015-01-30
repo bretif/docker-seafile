@@ -1207,12 +1207,12 @@ def main():
     
     ccnet_config.port = int(os.environ.get('CCNET_PORT'))
     ccnet_config.server_name = os.environ.get('CCNET_NAME')
-    ccnet_config.ip_or_domain = os.environ.get('CCNET_IP')
+    ccnet_config.ip_or_domain = os.environ.get('DOMAIN')
     seafile_config.seafile_dir = os.path.join(env_mgr.top_dir, 'seafile-data')
     seafile_config.port = int(os.environ.get('SEAFILE_PORT'))
     seafile_config.fileserver_port = int(os.environ.get('FILESERVER_PORT'))
     
-    if os.environ.get('EXISTING_DB') == 'true':
+    if os.environ.get('AUTO_CONF_DB') == 'false':
         db_config = ExistingDBConfigurator()
         db_config.mysql_host = os.environ.get('MYSQL_HOST')
         db_config.mysql_port = int(os.environ.get('MYSQL_PORT'))

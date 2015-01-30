@@ -1,10 +1,10 @@
 #!/bin/bash
 
 sslBaseDir="/etc/nginx/certs"
-sslFullDir="${sslBaseDir}/${CCNET_IP}"
-nginxConfFile="${CCNET_IP}.conf"
+sslFullDir="${sslBaseDir}/${DOMAIN}"
+nginxConfFile="${DOMAIN}.conf"
 
-[ "${autonginx}" = 'true' ] || exit 0
+[ "${AUTO_CONF_NGINX}" = 'true' ] || exit 0
 
 if [ ! -d /etc/nginx ]
 then
@@ -20,15 +20,15 @@ else
 	mv /root/seafile.conf ./"${nginxConfFile}"
 	mkdir -p $sslFullDir
 	export RANDFILE="${sslFullDir}"/.rnd #fix openssl error when generating certificates
-	openssl genrsa -out "${sslFullDir}"/$CCNET_IP.key 2048
-	openssl req -new -x509 -key "${sslFullDir}"/$CCNET_IP.key -out "${sslFullDir}"/$CCNET_IP.crt -days 1825 -subj "/C=FR/ST=France/L=Paris/O=Phosphore/CN=$CCNET_IP" 
-	sed -i "s/#SEAFILE IP#/$SEAFILE_IP/g" "${nginxConfFile}"
+	openssl genrsa -out "${sslFullDir}"/${DOMAIN}.key 2048
+	openssl req -new -x509 -key "${sslFullDir}"/${DOMAIN}.key -out "${sslFullDir}"/${DOMAIN}.crt -days 1825 -subj "/C=FR/ST=France/L=Paris/O=Phosphore/CN=${DOMAIN}" 
+	sed -i "s/#SEAFILE IP#/${SEAFILE_IP}/g" "${nginxConfFile}"
 	sed -i "s/#SEAHUB PORT#/$SEAHUB_PORT/g" "${nginxConfFile}"
 	sed -i "s/#FILESERVER PORT#/$FILESERVER_PORT/g" "${nginxConfFile}"
-	sed -i "s/#DOMAIN NAME#/$CCNET_IP/g" "${nginxConfFile}"
-	sed -i 's|#SSL CERTIFICATE#|'$sslFullDir/$CCNET_IP'.crt|g' "${nginxConfFile}"
-	sed -i 's|#SSL KEY#|'$sslFullDir/$CCNET_IP'.key|g' "${nginxConfFile}"
-	sed -i 's|#MEDIA DIR#|'${STATIC_FILES_DIR}${CCNET_IP}'|g' "${nginxConfFile}"
+	sed -i "s/#DOMAIN NAME#/${DOMAIN}/g" "${nginxConfFile}"
+	sed -i 's|#SSL CERTIFICATE#|'$sslFullDir/${DOMAIN}'.crt|g' "${nginxConfFile}"
+	sed -i 's|#SSL KEY#|'$sslFullDir/${DOMAIN}'.key|g' "${nginxConfFile}"
+	sed -i 's|#MEDIA DIR#|'${STATIC_FILES_DIR}${DOMAIN}'|g' "${nginxConfFile}"
 	ln -s /etc/nginx/sites-available/"${nginxConfFile}" /etc/nginx/sites-enabled/"${nginxConfFile}"
 fi
 

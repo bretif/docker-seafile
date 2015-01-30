@@ -20,15 +20,14 @@ RUN tar xzf seafile-server_${SEAFILE_VERSION}_x86-64.tar.gz
 RUN mkdir -p logs
 
 # Config env variables
-ENV autostart true
-ENV autoconf true
-ENV autonginx false
-ENV fcgi false
+ENV AUTO_START true
+ENV AUTO_CONF_DB true
+ENV AUTO_CONF_NGINX false
+ENV FCGI false
 ENV CCNET_PORT 10001
 ENV CCNET_NAME my-seafile
 ENV SEAFILE_PORT 12001
 ENV FILESERVER_PORT 8082
-ENV EXISTING_DB false
 ENV MYSQL_HOST mysql-container
 ENV MYSQL_PORT 3306
 ENV MYSQL_USER seafileuser

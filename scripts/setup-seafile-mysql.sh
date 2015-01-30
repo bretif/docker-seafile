@@ -4,18 +4,18 @@
 ### This script is a wrapper for setup-seafile-mysql.py
 ########
 
-[ "${autoconf}" = 'true' ] || exit 0
+[ "${AUTO_CONF_DB}" = 'true' ] || exit 0
 
 
 if [ -d /opt/seafile/ccnet ]
 then
-	echo "Configuration Found, not running the autoconf script"
+	echo "Configuration Found, not running the AUTO_CONF_DB script"
 	exit 0
 else
-	echo "No configuration found, Starting the python autoconf script"
+	echo "No configuration found, Starting the python AUTO_CONF_DB script"
 fi
 
-if [ -z $CCNET_IP ] || ([ -z $MYSQL_ROOT_PASSWORD ]  &&  [ -z $MYSQL_PASSWORD ])
+if [ -z ${DOMAIN} ] || ([ -z ${MYSQL_ROOT_PASSWORD} ]  &&  [ -z ${MYSQL_PASSWORD} ])
 then
         echo "Seafile can't run because some important parameters are missing for the configuration. Have you read https://github.com/Guilhem30/docker-seafile ?"
         exit 1
