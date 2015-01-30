@@ -1,5 +1,7 @@
-FROM		guilhem30/sudokeys
-MAINTAINER	Guilhem Berna  <guilhem.berna@gmail.com>
+FROM		sudokeys/baseimage
+MAINTAINER	Bertrand RETIF <bertrand@sudokeys.com>
+
+ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && apt-get install -y \
 	ca-certificates \
