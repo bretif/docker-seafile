@@ -82,7 +82,6 @@ All the environment variables and their default values
 
     AUTO_START :            If seafile daemons start automatically. Defaults to true
     DOMAIN :                This is the IP or domain asked by Seafile during installation. Mandatory. No defaults
-    SEAHUB_DB_NAME :		SEAHUB database name. Defaults to seahub-db
     SEAHUB_ADMIN_EMAIL :    Seafile container admin email. Defaults to seaadmin@sea.com
     SEAFILE_IP :            You can use the IP of the container (not very flexible), the docker host IP if you expose ports or some DNS discovery like skydock/skydns. Mandatory for nginx conf. No defaults
     CCNET_PORT :            CCNET daemon port. Defaults to 10001
@@ -91,14 +90,15 @@ All the environment variables and their default values
     FILESERVER_PORT : 		Fileserver port. Defaults to 8082
     SEAHUB_PORT 			Seahub port. Defaults to 8000
     AUTO_CONF_DB :          Create automatically DB. Need to set DB_ROOT_* variables. Defaults to true
+    SEAHUB_DB_NAME :		SEAHUB database name. Defaults to seahub-db
+    CCNET_DB_NAME :	    	CCNET database name. Defaults to ccnet-db
+    SEAFILE_DB_NAME :		SEAFILE databse name. Defaults to seafile-db
     MYSQL_HOST :	    	IP or DNS name of mariadb/mysql host. Defaults to mysql-container
     MYSQL_PORT :            Mariadb/mysql pourt. Defaults to 3306
     MYSQL_ROOT_USER :       Mariadb/mysql root user. Defaults to root
     MYSQL_ROOT_PASSWORD :   Mariadb/mysql root password. Defaults to root
     MYSQL_USER :            Mariadb/mysql seafile container user. Defaults to seafileuser
     MYSQL_PASSWORD :        Mariadb/mysql seafile container user password. Defaults is randomly generated
-    CCNET_DB_NAME :	    	CCNET database name. Defaults to ccnet-db
-    SEAFILE_DB_NAME :		SEAFILE databse name. Defaults to seafile-db
     SEAHUB_ADMIN_PASSWORD : Seafile container admin email. Defaults is randomly generated
     AUTO_CONF_NGINX :       Create automatically nginx vhost. Defaults set to false
     FCGI :                  Configure seahub to run as fastcgi. Need to have reverse proxy configured. Defaults to false
