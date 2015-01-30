@@ -101,7 +101,7 @@ All the environment variables and their default values
     SEAFILE_DB_NAME :		SEAFILE databse name. Defaults to seafile-db
     SEAHUB_ADMIN_PASSWORD : Seafile container admin email. Defaults is randomly generated
     AUTO_CONF_NGINX :       Create automatically nginx vhost. Defaults set to false
-    FCGI :                  Confiure seahub to run as fastcgi. Need to have reverse proxy configured. Defaults to false
+    FCGI :                  Configure seahub to run as fastcgi. Need to have reverse proxy configured. Defaults to false
     STATIC_FILES_DIR :      Where static files are stored. Defaults to /opt/seafile/nginx/
 
 
