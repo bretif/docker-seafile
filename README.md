@@ -84,8 +84,8 @@ All the environment variables and their default values
     DOMAIN :                This is the IP or domain asked by Seafile during installation. Mandatory. No defaults
     SEAHUB_ADMIN_EMAIL :    Seafile container admin email. Defaults to seaadmin@sea.com
     SEAFILE_IP :            You can use the IP of the container (not very flexible), the docker host IP if you expose ports or some DNS discovery like skydock/skydns. Mandatory for nginx conf. No defaults
-    CCNET_PORT :            CCNET daemon port. Defaults to 10001
     CCNET_NAME :  		    This is the server name asked by Seafile during installation. Defaults to my-seafile
+    CCNET_PORT :            CCNET daemon port. Defaults to 10001
     SEAFILE_PORT : 			Seafile server port. Defaults to 12001
     FILESERVER_PORT : 		Fileserver port. Defaults to 8082
     SEAHUB_PORT 			Seahub port. Defaults to 8000
