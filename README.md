@@ -80,30 +80,29 @@ just restart nginx after each new seafile container launch to make it reload his
 
 All the environment variables and their default values
 
-    autostart					true
-    autoconf					true
-    autonginx                   false
-    fcgi						false
-    CCNET_IP
-    SEAFILE_IP
-    CCNET_PORT					10001
-    CCNET_NAME 			    	my-seafile
-    SEAFILE_PORT				12001
-    FILESERVER_PORT			    8082
-    EXISTING_DB 				false
-    MYSQL_HOST 		    		mysql-container
-    MYSQL_PORT 			    	3306
-    MYSQL_ROOT_USER 			root
-    MYSQL_ROOT_PASSWORD
-    MYSQL_USER 			    	seafileuser
-    MYSQL_PASSWORD 		    	randomly generated
-    SEAHUB_ADMIN_EMAIL 	    	seaadmin@sea.com
-    SEAHUB_ADMIN_PASSWORD   	randomly generated
-    CCNET_DB_NAME 		    	ccnet-db
-    SEAFILE_DB_NAME 			seafile-db
-    SEAHUB_DB_NAME		    	seahub-db
-    SEAHUB_PORT 				8000
-    STATIC_FILES_DIR            /opt/seafile/nginx/
+    AUTO_START :            If seafile daemons start automatically. Defaults to true
+    DOMAIN :                This is the IP or domain asked by Seafile during installation. Mandatory. No defaults
+    SEAHUB_DB_NAME :		SEAHUB database name. Defaults to seahub-db
+    SEAHUB_ADMIN_EMAIL :    Seafile container admin email. Defaults to seaadmin@sea.com
+    SEAFILE_IP :            You can use the IP of the container (not very flexible), the docker host IP if you expose ports or some DNS discovery like skydock/skydns. Mandatory for nginx conf. No defaults
+    CCNET_PORT :            CCNET daemon port. Defaults to 10001
+    CCNET_NAME :  		    This is the server name asked by Seafile during installation. Defaults to my-seafile
+    SEAFILE_PORT : 			Seafile server port. Defaults to 12001
+    FILESERVER_PORT : 		Fileserver port. Defaults to 8082
+    SEAHUB_PORT 			Seahub port. Defaults to 8000
+    AUTO_CONF_DB :          Create automatically DB. Need to set DB_ROOT_* variables. Defaults to true
+    MYSQL_HOST :	    	IP or DNS name of mariadb/mysql host. Defaults to mysql-container
+    MYSQL_PORT :            Mariadb/mysql pourt. Defaults to 3306
+    MYSQL_ROOT_USER :       Mariadb/mysql root user. Defaults to root
+    MYSQL_ROOT_PASSWORD :   Mariadb/mysql root password. Defaults to root
+    MYSQL_USER :            Mariadb/mysql seafile container user. Defaults to seafileuser
+    MYSQL_PASSWORD :        Mariadb/mysql seafile container user password. Defaults is randomly generated
+    CCNET_DB_NAME :	    	CCNET database name. Defaults to ccnet-db
+    SEAFILE_DB_NAME :		SEAFILE databse name. Defaults to seafile-db
+    SEAHUB_ADMIN_PASSWORD : Seafile container admin email. Defaults is randomly generated
+    AUTO_CONF_NGINX :       Create automatically nginx vhost. Defaults set to false
+    FCGI :                  Confiure seahub to run as fastcgi. Need to have reverse proxy configured. Defaults to false
+    STATIC_FILES_DIR :      Where static files are stored. Defaults to /opt/seafile/nginx/
 
 
 ## Updates and Maintenance
@@ -119,7 +118,7 @@ example :
      --volumes-from myseafile \
      guilhem30/seafile   
 
-To update Seafile, you should start another container with the same volume mounted but also autostart disabled and then follow the normal upgrade process described in the [Seafile upgrade manual](http://manual.seafile.com/deploy/upgrade.html). 
+To update Seafile, you should start another container with the same volume mounted but also AUTO_START disabled and then follow the normal upgrade process described in the [Seafile upgrade manual](http://manual.seafile.com/deploy/upgrade.html). 
 
 example :
 
@@ -127,6 +126,6 @@ example :
      -p 10001:10001 -p 12001:12001 -p 8000:8000 -p 8082:8082 \
      --link mariadb:mysql-container \ 
      -e "autoconf=false" \
-     -e "autostart=false" \
+     -e "AUTO_START=false" \
      --volumes-from myseafile \
      guilhem30/seafile   
