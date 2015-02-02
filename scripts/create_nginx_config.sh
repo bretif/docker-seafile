@@ -28,7 +28,7 @@ else
 	sed -i "s/#DOMAIN NAME#/${DOMAIN}/g" "${nginxConfFile}"
 	sed -i 's|#SSL CERTIFICATE#|'$sslFullDir/${DOMAIN}'.crt|g' "${nginxConfFile}"
 	sed -i 's|#SSL KEY#|'$sslFullDir/${DOMAIN}'.key|g' "${nginxConfFile}"
-	sed -i 's|#MEDIA DIR#|'${STATIC_FILES_DIR}${DOMAIN}'|g' "${nginxConfFile}"
+	sed -i 's|#MEDIA DIR#|'${STATIC_FILES_DIR}/${DOMAIN}'|g' "${nginxConfFile}"
 	ln -s /etc/nginx/sites-available/"${nginxConfFile}" /etc/nginx/sites-enabled/"${nginxConfFile}"
 fi
 
