@@ -38,12 +38,46 @@ ENV SEAHUB_DB_NAME seahub-db
 ENV SEAHUB_PORT 8000
 ENV STATIC_FILES_DIR /opt/seafile/nginx/
 
+ENV EMAIL_USE_TLS False
+ENV EMAIL_HOST '127.0.0.1'
+ENV EMAIL_HOST_USER False
+ENV EMAIL_HOST_PASSWORD False
+ENV EMAIL_PORT '25'
+ENV DEFAULT_FROM_EMAIL "${SEAHUB_ADMIN_EMAIL}"
+ENV SERVER_EMAIL "${SEAHUB_ADMIN_EMAIL}"
+ENV REPO_PASSWORD_MIN_LENGTH 8
+ENV USER_PASSWORD_MIN_LENGTH 6
+ENV USER_PASSWORD_STRENGTH_LEVEL 3
+ENV USER_STRONG_PASSWORD_REQUIRED False
+ENV CLOUD_MODE False
+ENV ENABLE_SIGNUP False
+ENV ACTIVATE_AFTER_REGISTRATION False
+ENV TIME_ZONE 'UTC'
+ENV SITE_BASE "https://${DOMAIN}/"
+ENV SITE_NAME "${NAME}"
+ENV SITE_TITLE "Seafile ${CCNET_NAME}"
+ENV SITE_ROOT '/'
+ENV USE_PDFJS True
+ENV SEND_EMAIL_ON_ADDING_SYSTEM_MEMBER True
+ENV SEND_EMAIL_ON_RESETTING_USER_PASSWD True
+ENV FILE_PREVIEW_MAX_SIZE '30M'
+ENV SESSION_COOKIE_AGE 1209600
+ENV SESSION_SAVE_EVERY_REQUEST False
+ENV SESSION_EXPIRE_AT_BROWSER_CLOSE False
+ENV ENABLE_MAKE_GROUP_PUBLIC False
+ENV ENABLE_THUMBNAIL True
+ENV THUMBNAIL_ROOT  '/haiwen/seahub-data/thumbnail/thumb/'
+ENV THUMBNAIL_EXTENSION 'png'
+ENV THUMBNAIL_DEFAULT_SIZE 24
+ENV PREVIEW_DEFAULT_SIZE 100
+
 RUN mkdir -p /etc/my_init.d
 
 #Adding all our scripts
-COPY scripts/deploy-seafile.sh /etc/my_init.d/00_deploy-seafile.sh
-COPY scripts/setup-seafile-mysql.sh /etc/my_init.d/10_setup-seafile-mysql.sh
-COPY scripts/create_nginx_config.sh /etc/my_init.d/20_create_nginx_config.sh
+COPY scripts/deploy-seafile.sh /etc/my_init.d/10_deploy-seafile.sh
+COPY scripts/setup-seafile-mysql.sh /etc/my_init.d/20_setup-seafile-mysql.sh
+COPY scripts/setup-seahub_settings.sh /etc/my_init.d/25_setup-seahub_settings.sh
+COPY scripts/create_nginx_config.sh /etc/my_init.d/30_create_nginx_config.sh
 COPY scripts/check_init_admin.py /root/check_init_admin.py
 COPY scripts/setup-seafile-mysql.py /root/setup-seafile-mysql.py
 COPY nginx.conf /root/seafile.conf

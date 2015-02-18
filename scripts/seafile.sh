@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 [ "${AUTO_START}" = 'true' -a -x /opt/seafile/seafile-server-latest/seafile.sh ] || exit 0
 
@@ -24,6 +24,7 @@ if [ `grep -c "FILE_SERVER_ROOT" /opt/seafile/seahub_settings.py` -eq 0 ] && [ "
 	chown -h seafile:seafile /opt/seafile/seahub-data/avatars
 fi
 
+echo "Start seafile"
 su -c "/opt/seafile/seafile-server-latest/seafile.sh start" seafile
 
 # Script should not exit unless seafile died
