@@ -3,8 +3,6 @@
 [Seafile](http://www.seafile.com/) is a "next-generation open source cloud storage
 with advanced features on file syncing, privacy protection and teamwork".
 
-This Dockerfile is based on JensErat/docker-seafile
-
 This Dockerfile install an environment to run seafile.
 Seafile will be autoconfigurated with the default parameters and running at the container startup
 
@@ -13,7 +11,7 @@ You can use a mysql/mariadb container or any other database you already have ins
 
 Run it
 
-    docker run -d --name="mariadb" guilhem30/mariadb
+    docker run -d --name="mariadb" sudokeys/mariadb
 
 Get mariadb root password
 
@@ -41,7 +39,7 @@ example :
       --link mariadb:mysql-container \
       -e "CCNET_IP=192.168.0.100" -e "MYSQL_ROOT_USER=dataadmin" \ 
       -e "MYSQL_ROOT_PASSWORD=rootpass" -e "SEAHUB_ADMIN_EMAIL=seafileadmin@yourdomain.com" \
-      guilhem30/seafile 
+      sudokeys/seafile 
       
 
 ###Existing databases (no root password needed)
@@ -56,12 +54,12 @@ For example, you could use
       --link mariadb:mysql-container \
       -e "CCNET_IP=192.168.0.100" -e "EXISTING_DB=true" -e "SEAHUB_ADMIN_EMAIL=seafileadmin@yourdomain.com" \
       -e "MYSQL_USER=myseafileuser" -e "MYSQL_PASSWORD=myseafilepass" \
-      guilhem30/seafile   
+      sudokeys/seafile   
       
 ##Auto-configure Nginx
 Run nginx first with a volume where you want to store static files
 
-    docker run -d --name nginx -p 80:80 -p 443:443 -v /opt/seafile/nginx guilhem30/nginx
+    docker run -d --name nginx -p 80:80 -p 443:443 -v /opt/seafile/nginx sudokeys/nginx
     
 then run seafile with --volumes-from to allow it to create the configuration file, ssl certificates and copy his static files
 
@@ -75,6 +73,16 @@ For SEAFILE_IP you can use the static ip of the container (not very flexible), t
 just restart nginx after each new seafile container launch to make it reload his configuration
 
     docker restart nginx
+
+You can specify a SSL key and certificate for nginx. If not specified an autosigned key wille be generated. If you want to use you own key you have to attach a host volume containing your SSL key and cert, and pass the path to those in env variables NGINX_SSL_KEY and NGINX_SSL_CERT
+I use sudokeys/nginx container which export /etc/nginx volume by default. Then I use below command:
+
+     docker run -d --name "myseafile"  -e fcgi=true -e autonginx=true -e "CCNET_IP=myfiles.mydomain.com" \
+     -e "MYSQL_ROOT_USER=root" -e "MYSQL_ROOT_PASSWORD=rootpass" \
+     -e "SEAHUB_ADMIN_EMAIL=admin@yourdomain.com" -e "SEAFILE_IP=myseafile.seafile.dev.docker" \
+     -e "MYSQL_HOST=mydatabase.mariadb.dev.docker" \
+     -e "NGINX_SSL_KEY=/etc/nginx/certs/myseafile.key" -e "NGINX_SSL_CERT=/etc/nginx/certs/myseafile.cert" \
+     --volumes-from nginx seafile
     
 ##All configuration options      
 
@@ -103,6 +111,9 @@ All the environment variables and their default values
     AUTO_CONF_NGINX :       Create automatically nginx vhost. Defaults set to false
     FCGI :                  Configure seahub to run as fastcgi. Need to have reverse proxy configured. Defaults to false
     STATIC_FILES_DIR :      Where static files are stored. Defaults to /opt/seafile/nginx/
+    NGINX_SSL_KEY :         Path to Key file for SSL config. Defaults to false
+    NGINX_SSL_CERT :        Path to Cert file for SSL config. Defaults to false
+    SSL_BASE_DIR :          Path in NGINX container where certificats are stored. Defaults to /etc/nginx/certs
 
 
 You can also configure seahub settings. Please refer to seafile doc for more details. http://manual.seafile.com/config/seahub_settings_py.html
@@ -147,7 +158,7 @@ You can also configure seahub settings. Please refer to seafile doc for more det
 
 ## Updates and Maintenance
 
-The Seafile directory is stored in the permanent volume `/opt/seafile`. To update the base system or the seafile running options, just stop the container, update the image using `docker pull guilhem30/seafile` and run another container with autoconf disabled and the --volumes-from option
+The Seafile directory is stored in the permanent volume `/opt/seafile`. To update the base system or the seafile running options, just stop the container, update the image using `docker pull sudokeys/seafile` and run another container with autoconf disabled and the --volumes-from option
 
 example :
 
@@ -156,7 +167,7 @@ example :
      --link mariadb:mysql-container \ 
      -e "autoconf=false" \
      --volumes-from myseafile \
-     guilhem30/seafile   
+     sudokeys/seafile   
 
 To update Seafile, you should start another container with the same volume mounted but also AUTO_START disabled and then follow the normal upgrade process described in the [Seafile upgrade manual](http://manual.seafile.com/deploy/upgrade.html). 
 
@@ -168,4 +179,4 @@ example :
      -e "autoconf=false" \
      -e "AUTO_START=false" \
      --volumes-from myseafile \
-     guilhem30/seafile   
+     sudokeys/seafile   
