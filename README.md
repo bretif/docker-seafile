@@ -107,41 +107,41 @@ All the environment variables and their default values
 
 You can also configure seahub settings. Please refer to seafile doc for more details. http://manual.seafile.com/config/seahub_settings_py.html
 
-    EMAIL_USE_TLS :         Defaults to False
-    EMAIL_HOST :            Defaults to 127.0.0.1
-    EMAIL_HOST_USER :       Defaults to False
-    EMAIL_HOST_PASSWORD :   Defaults to False
-    EMAIL_PORT :            Defaults to 25
-    DEFAULT_FROM_EMAIL :    Default to $SEAHUB_ADMIN_EMAIL
-    SERVER_EMAIL :          Defaults to $EMAIL_HOST_USER
+    SHS_EMAIL_USE_TLS :         Defaults to False
+    SHS_EMAIL_HOST :            Defaults to 127.0.0.1
+    SHS_EMAIL_HOST_USER :       Defaults to False
+    SHS_EMAIL_HOST_PASSWORD :   Defaults to False
+    SHS_EMAIL_PORT :            Defaults to 25
+    SHS_DEFAULT_FROM_EMAIL :    Default to $SEAHUB_ADMIN_EMAIL
+    SHS_SERVER_EMAIL :          Defaults to $EMAIL_HOST_USER
     
-    REPO_PASSWORD_MIN_LENGTH :      Defaults to 8
-    USER_PASSWORD_MIN_LENGTH :      Defaults to 6
-    USER_PASSWORD_STRENGTH_LEVEL :  Defaults to 3
-    USER_STRONG_PASSWORD_REQUIRED : Defaults to False
+    SHS_REPO_PASSWORD_MIN_LENGTH :      Defaults to 8
+    SHS_USER_PASSWORD_MIN_LENGTH :      Defaults to 6
+    SHS_USER_PASSWORD_STRENGTH_LEVEL :  Defaults to 3
+    SHS_USER_STRONG_PASSWORD_REQUIRED : Defaults to False
 
-    CLOUD_MODE :                    Default to False
-    ENABLE_SIGNUP :                 Default to False
-    ACTIVATE_AFTER_REGISTRATION :   Defaults to False
+    SHS_CLOUD_MODE :                    Default to False
+    SHS_ENABLE_SIGNUP :                 Default to False
+    SHS_ACTIVATE_AFTER_REGISTRATION :   Defaults to False
 
-    TIME_ZONE :                     Defaults to UTC. http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
-    SITE_BASE :                     Defaults to https://$NAME.$DOMAIN/'
-    SITE_NAME :                     Defaults to $NAME
-    SITE_TITLE :                    Defaults to 'Seafile $NAME'
-    SITE_ROOT :                     Defaults to /
-    USE_PDFJS :                     Defaults to True
-    SEND_EMAIL_ON_ADDING_SYSTEM_MEMBER :    Defaults to True
-    SEND_EMAIL_ON_RESETTING_USER_PASSWD :   Defaults to  True
-    FILE_PREVIEW_MAX_SIZE :                 Defaults to 30M
-    SESSION_COOKIE_AGE :                    Defaults to 1209600 (2 weeks)
-    SESSION_SAVE_EVERY_REQUEST :            Defaults to False
-    SESSION_EXPIRE_AT_BROWSER_CLOSE :       Defaults to False
-    ENABLE_MAKE_GROUP_PUBLIC :              Defaults to  False
-    ENABLE_THUMBNAIL :                      Defaults to True
-    THUMBNAIL_ROOT :                        Defaults to /haiwen/seahub-data/thumbnail/thumb/
-    THUMBNAIL_EXTENSION :                   Defaults to png
-    THUMBNAIL_DEFAULT_SIZE :                Defaults to 24
-    PREVIEW_DEFAULT_SIZE :                  Defaults to 100
+    SHS_TIME_ZONE :                     Defaults to UTC. http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
+    SHS_SITE_BASE :                     Defaults to https://$NAME.$DOMAIN/'
+    SHS_SITE_NAME :                     Defaults to $NAME
+    SHS_SITE_TITLE :                    Defaults to 'Seafile $NAME'
+    SHS_SITE_ROOT :                     Defaults to /
+    SHS_USE_PDFJS :                     Defaults to True
+    SHS_SEND_EMAIL_ON_ADDING_SYSTEM_MEMBER :    Defaults to True
+    SHS_SEND_EMAIL_ON_RESETTING_USER_PASSWD :   Defaults to  True
+    SHS_FILE_PREVIEW_MAX_SIZE :                 Defaults to 30M
+    SHS_SESSION_COOKIE_AGE :                    Defaults to 1209600 (2 weeks)
+    SHS_SESSION_SAVE_EVERY_REQUEST :            Defaults to False
+    SHS_SESSION_EXPIRE_AT_BROWSER_CLOSE :       Defaults to False
+    SHS_ENABLE_MAKE_GROUP_PUBLIC :              Defaults to  False
+    SHS_ENABLE_THUMBNAIL :                      Defaults to True
+    SHS_THUMBNAIL_ROOT :                        Defaults to /haiwen/seahub-data/thumbnail/thumb/
+    SHS_THUMBNAIL_EXTENSION :                   Defaults to png
+    SHS_THUMBNAIL_DEFAULT_SIZE :                Defaults to 24
+    SHS_PREVIEW_DEFAULT_SIZE :                  Defaults to 100
 
 
 
