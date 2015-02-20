@@ -37,13 +37,25 @@ else
 	    openssl genrsa -out ${NGINX_SSL_KEY} 2048
 	    openssl req -new -x509 -key ${NGINX_SSL_KEY} -out ${NGINX_SSL_CERT} -days 1825 -subj "/C=FR/ST=France/L=NIMES/O=SUDOKEYS/CN=${DOMAIN}" 
     fi 
+
+    NGINX_SERVER_NAME=${DOMAIN}
+    if [[ ${NGINX_URLS} = "false" ]]; then
+        echo 'No extra URLs'
+    else
+        OLDIFS=$IFS
+        IFS=:
+        for url in ${NGINX_URLS}; do
+            NGINX_SERVER_NAME="${NGINX_SERVER_NAME} $url"
+        done
+        IFS=$OLDIFS
+    fi
+
 	sed -i "s/#SEAFILE IP#/${SEAFILE_IP}/g" "${NGINX_CONF_FILE}"
 	sed -i "s/#SEAHUB PORT#/$SEAHUB_PORT/g" "${NGINX_CONF_FILE}"
 	sed -i "s/#FILESERVER PORT#/$FILESERVER_PORT/g" "${NGINX_CONF_FILE}"
-	sed -i "s/#DOMAIN NAME#/${DOMAIN}/g" "${NGINX_CONF_FILE}"
+	sed -i "s/#NGINX_SERVER_NAME#/${NGINX_SERVER_NAME}/g" "${NGINX_CONF_FILE}"
 	sed -i "s|#SSL CERTIFICATE#|${NGINX_SSL_CERT}|g" "${NGINX_CONF_FILE}"
 	sed -i "s|#SSL KEY#|${NGINX_SSL_KEY}|g" "${NGINX_CONF_FILE}"
 	sed -i 's|#MEDIA DIR#|'${STATIC_FILES_DIR}/${DOMAIN}'|g' "${NGINX_CONF_FILE}"
 	ln -s /etc/nginx/sites-available/"${NGINX_CONF_FILE}" /etc/nginx/sites-enabled/"${NGINX_CONF_FILE}"
 fi
-

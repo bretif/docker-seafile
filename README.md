@@ -113,6 +113,7 @@ All the environment variables and their default values
     STATIC_FILES_DIR :      Where static files are stored. Defaults to /opt/seafile/nginx/
     NGINX_SSL_KEY :         Path to Key file for SSL config. Defaults to false
     NGINX_SSL_CERT :        Path to Cert file for SSL config. Defaults to false
+    NGINX_URLS :            URLs that wille be added in vhost. Format URL1:URL2:...URLX. Defaults to False
     SSL_BASE_DIR :          Path in NGINX container where certificats are stored. Defaults to /etc/nginx/certs
 
 
